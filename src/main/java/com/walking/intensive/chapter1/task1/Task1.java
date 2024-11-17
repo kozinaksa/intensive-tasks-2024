@@ -21,8 +21,36 @@ public class Task1 {
     }
 
     static String getAgeString(int age) {
-//        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        int lastDigit = age % 10;
+        int penultDigit = age / 10 % 10;
+
+        switch (lastDigit) {
+            case 1:
+                if (penultDigit == 1) {
+                    return "Вам " + age + " лет";
+                }
+                else {
+                    return "Вам " + age + " год";
+                }
+            case 2:
+            case 3:
+            case 4:
+                if (penultDigit == 1) {
+                    return "Вам " + age + " лет";
+                }
+                else {
+                    return "Вам " + age + " года";
+                }
+            case 0:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                return "Вам " + age + " лет";
+            default:
+                return "Некорректный ввод";
+        }
     }
 }
