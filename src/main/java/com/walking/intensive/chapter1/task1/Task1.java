@@ -32,8 +32,7 @@ public class Task1 {
 
         if (lastDigit == 1 && penultDigit != 1) {
             yearText = " год";
-        }
-        else if (lastDigit >= 2 && lastDigit <= 4 && penultDigit != 1) {
+        } else if (lastDigit >= 2 && lastDigit <= 4 && penultDigit != 1) {
             yearText = " года";
         }
 
