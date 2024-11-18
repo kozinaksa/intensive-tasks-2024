@@ -29,7 +29,7 @@ public class Task3 {
     }
 
     static boolean isLeap(int year) {
-//                every 400 yr - true, every 100 yr - false, every 4 yr - true
-        return year % 400 == 0 || (year % 400 % 100 != 0 && year % 400 % 4 == 0);
+//          every 400 yr - true, every 100 yr - false, every 4 yr - true
+        return year % 400 == 0 || (year % 100 != 0 && year % 400 % 4 == 0);
     }
 }
