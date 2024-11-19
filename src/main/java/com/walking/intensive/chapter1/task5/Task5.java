@@ -19,11 +19,6 @@ public class Task5 {
         return (a + b + c) / 2;
     }
 
-    public static double getArea(double a, double b, double c) {
-        double p = getSemiperimeter(a, b, c);
-        return Math.sqrt((p * (p - a) * (p - b) * (p - c)));
-    }
-
     public static double getCosine(double a, double b, double c) {
         return (Math.pow(a,2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
     }
@@ -45,8 +40,8 @@ public class Task5 {
         if (checkNoExistTriangle(a, b, c)) {
             return -1;
         }
-
-        return getArea(a, b, c);
+        double p = getSemiperimeter(a, b, c);
+        return Math.sqrt((p * (p - a) * (p - b) * (p - c)));
     }
 
     /**
@@ -64,7 +59,7 @@ public class Task5 {
             return heightsTriangle;
         }
 
-        double areaTriangle = getArea(a, b, c);
+        double areaTriangle = getAreaByHeron(a, b, c);
 
         heightsTriangle = new double[3];
         heightsTriangle[0] = 2 / a * areaTriangle;
@@ -175,7 +170,7 @@ public class Task5 {
             return -1;
         }
 
-        return a * b * c / (4 * getArea(a, b, c));
+        return a * b * c / (4 * getAreaByHeron(a, b, c));
     }
 
     /**
