@@ -11,18 +11,6 @@ import java.util.Arrays;
  * <p><a href="https://github.com/KFalcon2022/intensive-tasks-2024/blob/master/README.md">Требования к оформлению</a>
  */
 public class Task5 {
-    public static boolean checkNoExistTriangle(double a, double b, double c) {
-        return a + b < c || b + c < a || c + a < b;
-    }
-
-    public static double getSemiperimeter(double a, double b, double c) {
-        return (a + b + c) / 2;
-    }
-
-    public static double getCosine(double a, double b, double c) {
-        return (Math.pow(a,2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
-    }
-
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
     }
@@ -40,6 +28,7 @@ public class Task5 {
         if (checkNoExistTriangle(a, b, c)) {
             return -1;
         }
+
         double p = getSemiperimeter(a, b, c);
         return Math.sqrt((p * (p - a) * (p - b) * (p - c)));
     }
@@ -52,19 +41,15 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getHeights(double a, double b, double c) {
-        double[] heightsTriangle;
-
         if (checkNoExistTriangle(a, b, c)) {
-            heightsTriangle = new double[0];
-            return heightsTriangle;
+            return new double[0];
         }
 
         double areaTriangle = getAreaByHeron(a, b, c);
-
-        heightsTriangle = new double[3];
-        heightsTriangle[0] = 2 / a * areaTriangle;
-        heightsTriangle[1] = 2 / b * areaTriangle;
-        heightsTriangle[2] = 2 / c * areaTriangle;
+        double[] heightsTriangle = new double[3];
+        heightsTriangle[0] = getOneHeight(a, areaTriangle);
+        heightsTriangle[1] = getOneHeight(b, areaTriangle);
+        heightsTriangle[2] = getOneHeight(c, areaTriangle);
 
         Arrays.sort(heightsTriangle);
         return heightsTriangle;
@@ -78,17 +63,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getMedians(double a, double b, double c) {
-        double[] medians;
-
         if (checkNoExistTriangle(a, b, c)) {
-            medians = new double[0];
-            return medians;
+            return new double[0];
         }
 
-        medians = new double[3];
-        medians[0] = 0.5 * Math.sqrt(2 * Math.pow(a, 2) + 2 * Math.pow(b, 2) - Math.pow(c, 2));
-        medians[1] = 0.5 * Math.sqrt(2 * Math.pow(b, 2) + 2 * Math.pow(c, 2) - Math.pow(a, 2));
-        medians[2] = 0.5 * Math.sqrt(2 * Math.pow(c, 2) + 2 * Math.pow(a, 2) - Math.pow(b, 2));
+        double[] medians = new double[3];
+        medians[0] = getOneMedian(a, b, c);
+        medians[1] = getOneMedian(b, c, a);
+        medians[2] = getOneMedian(c, a, b);
 
         Arrays.sort(medians);
         return medians;
@@ -102,17 +84,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getBisectors(double a, double b, double c) {
-        double[] bisectors;
-
         if (checkNoExistTriangle(a, b, c)) {
-            bisectors = new double[0];
-            return bisectors;
+            return new double[0];
         }
 
-        bisectors = new double[3];
-        bisectors[0] = Math.sqrt(a * b * (a + b + c) * (a + b - c)) / (a + b);
-        bisectors[1] = Math.sqrt(b * c * (a + b + c) * (b + c - a)) / (b + c);
-        bisectors[2] = Math.sqrt(c * a * (a + b + c) * (c + a - b)) / (c + a);
+        double[] bisectors = new double[3];
+        bisectors[0] = getOneBisector(a, b, c);
+        bisectors[1] = getOneBisector(b, c, a);
+        bisectors[2] = getOneBisector(c, a, b);
 
         Arrays.sort(bisectors);
         return bisectors;
@@ -126,17 +105,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getAngles(double a, double b, double c) {
-        double[] angles;
-
         if (checkNoExistTriangle(a, b, c)) {
-            angles = new double[0];
-            return angles;
+            return new double[0];
         }
 
-        angles = new double[3];
-        angles[0] = Math.toDegrees(Math.acos(getCosine(a ,b, c)));
-        angles[1] = Math.toDegrees(Math.acos(getCosine(b, c, a)));
-        angles[2] = Math.toDegrees(Math.acos(getCosine(c, a ,b)));
+        double[] angles = new double[3];
+        angles[0] = getOneAngle(a, b, c);
+        angles[1] = getOneAngle(b, c, a);
+        angles[2] = getOneAngle(c, a, b);
 
         Arrays.sort(angles);
         return angles;
@@ -192,8 +168,36 @@ public class Task5 {
             return -1;
         }
 
-        double cosAB = getCosine(a, b, c);
+        double cosAB = getCos(a, b, c);
         double sinAB = Math.sqrt(1 - Math.pow(cosAB, 2));
         return 0.5 * a * b * sinAB;
+    }
+
+    public static boolean checkNoExistTriangle(double a, double b, double c) {
+        return a + b < c || b + c < a || c + a < b;
+    }
+
+    public static double getSemiperimeter(double a, double b, double c) {
+        return (a + b + c) / 2;
+    }
+
+    public static double getCos(double a, double b, double c) {
+        return (Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
+    }
+
+    public static double getOneHeight(double a, double areaTriangle) {
+        return 2 / a * areaTriangle;
+    }
+
+    public static double getOneMedian(double a, double b, double c) {
+        return 0.5 * Math.sqrt(2 * Math.pow(a, 2) + 2 * Math.pow(b, 2) - Math.pow(c, 2));
+    }
+
+    public static double getOneBisector(double a, double b, double c) {
+        return Math.sqrt(a * b * (a + b + c) * (a + b - c)) / (a + b);
+    }
+
+    public static double getOneAngle(double a, double b, double c) {
+        return Math.toDegrees(Math.acos(getCos(a, b, c)));
     }
 }
