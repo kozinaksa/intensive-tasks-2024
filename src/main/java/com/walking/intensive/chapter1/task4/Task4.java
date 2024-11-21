@@ -37,19 +37,23 @@ public class Task4 {
         if (a == 0 && c == 0) {
             return  "Бесконечное множество решений.";
         }
+
         if (a == 0 && b == 0) {
             return "Количество решений: 0.";
         }
+
         if (a == 0) {
             return "Количество решений: 1. Корень: " + -c / b;
         }
 
         double discriminant = Math.pow(b, 2) - 4 * a * c;
+
         if (discriminant < 0) {
             return "Количество решений: 0.";
         }
 
         double x1 = (-b + Math.sqrt(discriminant)) / 2 * a;
+
         if (discriminant == 0) {
             return "Количество решений: 1. Корень: " + x1;
         }
