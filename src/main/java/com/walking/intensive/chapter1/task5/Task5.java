@@ -25,7 +25,7 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaByHeron(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return -1;
         }
 
@@ -41,15 +41,15 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getHeights(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return new double[0];
         }
 
         double areaTriangle = getAreaByHeron(a, b, c);
         double[] heightsTriangle = new double[3];
-        heightsTriangle[0] = getOneHeight(a, areaTriangle);
-        heightsTriangle[1] = getOneHeight(b, areaTriangle);
-        heightsTriangle[2] = getOneHeight(c, areaTriangle);
+        heightsTriangle[0] = getHeight(a, areaTriangle);
+        heightsTriangle[1] = getHeight(b, areaTriangle);
+        heightsTriangle[2] = getHeight(c, areaTriangle);
 
         Arrays.sort(heightsTriangle);
         return heightsTriangle;
@@ -63,14 +63,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getMedians(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return new double[0];
         }
 
         double[] medians = new double[3];
-        medians[0] = getOneMedian(a, b, c);
-        medians[1] = getOneMedian(b, c, a);
-        medians[2] = getOneMedian(c, a, b);
+        medians[0] = getMedian(a, b, c);
+        medians[1] = getMedian(b, c, a);
+        medians[2] = getMedian(c, a, b);
 
         Arrays.sort(medians);
         return medians;
@@ -84,14 +84,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getBisectors(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return new double[0];
         }
 
         double[] bisectors = new double[3];
-        bisectors[0] = getOneBisector(a, b, c);
-        bisectors[1] = getOneBisector(b, c, a);
-        bisectors[2] = getOneBisector(c, a, b);
+        bisectors[0] = getBisector(a, b, c);
+        bisectors[1] = getBisector(b, c, a);
+        bisectors[2] = getBisector(c, a, b);
 
         Arrays.sort(bisectors);
         return bisectors;
@@ -105,14 +105,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getAngles(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return new double[0];
         }
 
         double[] angles = new double[3];
-        angles[0] = getOneAngle(a, b, c);
-        angles[1] = getOneAngle(b, c, a);
-        angles[2] = getOneAngle(c, a, b);
+        angles[0] = getAngle(a, b, c);
+        angles[1] = getAngle(b, c, a);
+        angles[2] = getAngle(c, a, b);
 
         Arrays.sort(angles);
         return angles;
@@ -126,7 +126,7 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getInscribedCircleRadius(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return -1;
         }
 
@@ -142,7 +142,7 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getCircumradius(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return -1;
         }
 
@@ -164,7 +164,7 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaAdvanced(double a, double b, double c) {
-        if (checkNoExistTriangle(a, b, c)) {
+        if (isTriangleNoExist(a, b, c)) {
             return -1;
         }
 
@@ -173,7 +173,7 @@ public class Task5 {
         return 0.5 * a * b * sinAB;
     }
 
-    public static boolean checkNoExistTriangle(double a, double b, double c) {
+    public static boolean isTriangleNoExist(double a, double b, double c) {
         return a + b < c || b + c < a || c + a < b;
     }
 
@@ -185,19 +185,19 @@ public class Task5 {
         return (Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
     }
 
-    public static double getOneHeight(double a, double areaTriangle) {
+    public static double getHeight(double a, double areaTriangle) {
         return 2 / a * areaTriangle;
     }
 
-    public static double getOneMedian(double a, double b, double c) {
+    public static double getMedian(double a, double b, double c) {
         return 0.5 * Math.sqrt(2 * Math.pow(a, 2) + 2 * Math.pow(b, 2) - Math.pow(c, 2));
     }
 
-    public static double getOneBisector(double a, double b, double c) {
+    public static double getBisector(double a, double b, double c) {
         return Math.sqrt(a * b * (a + b + c) * (a + b - c)) / (a + b);
     }
 
-    public static double getOneAngle(double a, double b, double c) {
+    public static double getAngle(double a, double b, double c) {
         return Math.toDegrees(Math.acos(getCos(a, b, c)));
     }
 }
