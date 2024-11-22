@@ -19,8 +19,13 @@ public class Task6 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static int getLcm(int m, int n) {
-        // Ваш код
-        return 0;
+        if (isNegativeNumber(m, n)) {
+            return -1;
+        }
+
+        int gcd = getGcdByEuclideanAlgorithm(m, n);
+
+        return m * n / gcd;
     }
 
     /**
@@ -31,8 +36,27 @@ public class Task6 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static int getGcd(int m, int n) {
-        // Ваш код
-        return 0;
+        if (isNegativeNumber(m, n)) {
+            return -1;
+        }
+
+        if (isGcdParameterExist(m, n)) {
+            return Math.min(n, m);
+        }
+
+        int gcd = 1;
+        int divisor = 2;
+
+        while (divisor < m && divisor < n) {
+            if (m % divisor == 0 && n % divisor == 0) {
+                m /= divisor;
+                n /= divisor;
+                gcd *= divisor;
+            }
+            divisor++;
+        }
+
+        return gcd;
     }
 
     /**
@@ -44,7 +68,32 @@ public class Task6 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static int getGcdByEuclideanAlgorithm(int m, int n) {
-        // Ваш код
-        return 0;
+        if (isNegativeNumber(m, n)) {
+            return -1;
+        }
+
+        if (isGcdParameterExist(m, n)) {
+            return Math.min(n, m);
+        }
+
+        int gcd = 1;
+        int maxNum = Math.max(m, n);
+        int minNum = Math.min(m, n);
+
+        while (maxNum % minNum != 0) {
+            gcd = maxNum % minNum;
+            maxNum = minNum;
+            minNum = gcd;
+        }
+
+        return gcd;
+    }
+
+    static boolean isNegativeNumber(int m, int n) {
+        return m <= 0 || n <= 0;
+    }
+
+    static boolean isGcdParameterExist(int m, int n) {
+        return Math.max(m, n) % Math.min(m, n) == 0;
     }
 }
