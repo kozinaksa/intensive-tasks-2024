@@ -72,21 +72,11 @@ public class Task6 {
             return -1;
         }
 
-        if (isGcdParameterExist(m, n)) {
-            return Math.min(n, m);
+        if (Math.max(m, n) % Math.min(m, n) != 0) {
+            return getGcdByEuclideanAlgorithm(Math.min(m, n), Math.max(m, n) % Math.min(m, n));
         }
 
-        int gcd = 1;
-        int maxNum = Math.max(m, n);
-        int minNum = Math.min(m, n);
-
-        while (maxNum % minNum != 0) {
-            gcd = maxNum % minNum;
-            maxNum = minNum;
-            minNum = gcd;
-        }
-
-        return gcd;
+        return Math.min(m, n);
     }
 
     static boolean isNegativeNumber(int m, int n) {
