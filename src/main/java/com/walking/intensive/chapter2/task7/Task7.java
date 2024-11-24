@@ -28,10 +28,55 @@ package com.walking.intensive.chapter2.task7;
 public class Task7 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+
+        System.out.println(getFriendlyPair(125000));
     }
 
     static int getFriendlyPair(int n) {
-        // Ваш код
-        return 0;
+        if (n < 1 || n > 1000000) {
+            return -1;
+        }
+
+        final int MIN_VALUE = 284;
+
+        int num1, num2;
+        int maxSum = 0;
+        int result = 0;
+
+        for (int i = n - 1; i >= MIN_VALUE; i--) {
+            num1 = getMultipliersSum(i);
+            num2 = getMultipliersSum(num1);
+
+            if (isFriendlyPair(i, num1, num2, n)) {
+                if (Math.max(num1, num2) == MIN_VALUE) {
+                    return Math.max(num1, num2);
+                }
+
+                if (maxSum > num1 + num2) {
+                    break;
+                }
+
+                maxSum = num1 + num2;
+                result = Math.max(num1, num2);
+            }
+        }
+
+        return result;
+    }
+
+    static int getMultipliersSum(int n) {
+        int sum = 1;
+
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) {
+                sum += i;
+            }
+        }
+
+        return sum;
+    }
+
+    static boolean isFriendlyPair(int i, int num1, int num2, int n) {
+        return i == num2 && num1 != num2 && Math.max(num1, num2) < n;
     }
 }
