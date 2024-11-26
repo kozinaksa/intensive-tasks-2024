@@ -26,6 +26,8 @@ package com.walking.intensive.chapter2.task7;
  * <p><a href="https://github.com/KFalcon2022/intensive-tasks-2024/blob/master/README.md">Требования к оформлению</a>
  */
 public class Task7 {
+    static final int MIN_GREATER_FRIENDLY = 284;
+
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
 
@@ -37,23 +39,22 @@ public class Task7 {
             return -1;
         }
 
-        final int MIN_VALUE = 284;
-
-        int num1, num2;
+        int num1;
+        int num2;
         int maxSum = 0;
         int result = 0;
 
-        for (int i = n - 1; i >= MIN_VALUE; i--) {
+        for (int i = n - 1; i >= MIN_GREATER_FRIENDLY; i--) {
             num1 = getMultipliersSum(i);
             num2 = getMultipliersSum(num1);
 
             if (isFriendlyPair(i, num1, num2, n)) {
-                if (Math.max(num1, num2) == MIN_VALUE) {
+                if (Math.max(num1, num2) == MIN_GREATER_FRIENDLY) {
                     return Math.max(num1, num2);
                 }
 
-                if (maxSum > num1 + num2) {
-                    break;
+                if (maxSum >= num1 + num2) {
+                    return result;
                 }
 
                 maxSum = num1 + num2;
