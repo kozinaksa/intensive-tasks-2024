@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter2.task8;
 
+import java.util.Arrays;
+
 /**
  * Добираясь в школу на трамвае Вова проверяет, является ли купленный билет счастливым.
  * Если является, то нужно загадать желание и съесть билетик.
@@ -24,7 +26,30 @@ public class Task8 {
     }
 
     static double getHappyTicketChance() {
-        // Ваш код
-        return 0.0;
+        int[] halfRanks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        int[] combinations = new int[14];
+
+        for (int i = 0; i < 14; i++) {
+            combinations[i] = getSumRanks(halfRanks, i) + i + 1;
+            if (i >= 10) {
+                combinations[i] -= combinations[i - 10] * 3;
+            }
+        }
+
+        for (int i = 0; i < combinations.length; i++) {
+            combinations[i] = (int) Math.pow(combinations[i], 2);
+        }
+
+        return (double) (Arrays.stream(combinations).sum() * 2) / (999999 + 1);
+    }
+
+    static int getSumRanks(int[] ranks, int count) {
+        int sum = 0;
+
+        for (int i = 0; i < count; i++) {
+            sum += ranks[i];
+        }
+
+        return sum;
     }
 }
