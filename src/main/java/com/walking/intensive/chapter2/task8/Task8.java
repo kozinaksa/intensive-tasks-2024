@@ -29,12 +29,12 @@ public class Task8 {
 
         for (int i = 1; i <= 14; i++) {
             combinations = (1 + i) * i / 2;
-            if (i >= 10) {
+            if (i > 10) {
                 combinations -= (i - 9) * (i - 10) / 2 * 3;
             }
             sum += (int) Math.pow(combinations, 2);
         }
 
-        return (double) (sum * 2) / 1_000_000;
+        return (double) sum * 2 / 1_000_000;
     }
 }
