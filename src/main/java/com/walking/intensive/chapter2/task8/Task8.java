@@ -26,30 +26,17 @@ public class Task8 {
     }
 
     static double getHappyTicketChance() {
-        int[] halfRanks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-        int[] combinations = new int[14];
-
-        for (int i = 0; i < 14; i++) {
-            combinations[i] = getSumRanks(halfRanks, i) + i + 1;
-            if (i >= 10) {
-                combinations[i] -= combinations[i - 10] * 3;
-            }
-        }
-
-        for (int i = 0; i < combinations.length; i++) {
-            combinations[i] = (int) Math.pow(combinations[i], 2);
-        }
-
-        return (double) (Arrays.stream(combinations).sum() * 2) / (999999 + 1);
-    }
-
-    static int getSumRanks(int[] ranks, int count) {
+        int combinations;
         int sum = 0;
 
-        for (int i = 0; i < count; i++) {
-            sum += ranks[i];
+        for (int i = 1; i <= 14; i++) {
+            combinations = (1 + i) * i / 2;
+            if (i >= 10) {
+                combinations -= (i - 9) * (i - 10) / 2 * 3;
+            }
+            sum += (int) Math.pow(combinations, 2);
         }
 
-        return sum;
+        return (double) (sum * 2) / (1_000_000);
     }
 }
