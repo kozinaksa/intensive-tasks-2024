@@ -12,10 +12,24 @@ package com.walking.intensive.chapter2.task10;
 public class Task10 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(isPalindrome("Муза! Ранясь шилом опыта, ты помолишься на разум."));
     }
 
     static boolean isPalindrome(String inputString) {
-        // Ваш код
-        return false;
+        if (inputString == null || inputString.length() < 2) {
+            return false;
+        }
+
+        String input = inputString.replaceAll("\\p{Punct}|\\p{Space}", "").toLowerCase();
+        String part1 = input.substring(0, input.length() / 2);
+        String part2 = input.substring(input.length() - part1.length());
+
+        for (int i = 0; i < part1.length() - 1; i++) {
+            if (part1.charAt(i) != part2.charAt(part1.length() - 1 - i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
