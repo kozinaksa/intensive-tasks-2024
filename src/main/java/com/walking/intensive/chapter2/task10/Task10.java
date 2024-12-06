@@ -20,7 +20,15 @@ public class Task10 {
             return false;
         }
 
-        String input = inputString.replaceAll("\\p{Punct}|\\p{Space}", "").toLowerCase();
+        String input = inputString.toLowerCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) < 1072 || input.charAt(i) > 1103) {
+                input = input.substring(0, i) + input.substring(i + 1);
+                i--;
+            }
+        }
+
         String part1 = input.substring(0, input.length() / 2);
         String part2 = input.substring(input.length() - part1.length());
 
