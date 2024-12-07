@@ -20,20 +20,24 @@ public class Task10 {
             return false;
         }
 
-        String input = inputString.toLowerCase();
+        int skipBegin = 0;
+        int skipEnd = 0;
 
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) < 1072 || input.charAt(i) > 1103) {
-                input = input.substring(0, i) + input.substring(i + 1);
-                i--;
+        for (int i = 0; i < inputString.length() / 2; i++) {
+            int charBegin = inputString.charAt(i + skipBegin);
+            int charEnd = inputString.charAt(inputString.length() - 1 - i - skipEnd);
+
+            while (charBegin < 1040 || charBegin > 1103) {
+                skipBegin++;
+                charBegin = inputString.charAt(i + skipBegin);
             }
-        }
 
-        String part1 = input.substring(0, input.length() / 2);
-        String part2 = input.substring(input.length() - part1.length());
+            while (charEnd < 1040 || charEnd > 1103) {
+                skipEnd++;
+                charEnd = inputString.charAt(inputString.length() - 1 - i - skipEnd);
+            }
 
-        for (int i = 0; i < part1.length() - 1; i++) {
-            if (part1.charAt(i) != part2.charAt(part1.length() - 1 - i)) {
+            if (charBegin != charEnd && Math.abs(charBegin - charEnd) != 32) {
                 return false;
             }
         }
