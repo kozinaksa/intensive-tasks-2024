@@ -1,7 +1,5 @@
 package com.walking.intensive.chapter3.task14;
 
-import java.util.Arrays;
-
 /**
  * Необходимо разработать программу, которая определяет количество объектов на радарах.
  *
@@ -46,9 +44,6 @@ import java.util.Arrays;
 public class Task14 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        int[][] pointsOne = {{1, 3}, {3, 3}, {5, 3}, {2, 2}};
-        int[][] queriesOne = {{2, 3, 1}, {4, 3, 1}, {1, 1, 2}};
-        System.out.println(Arrays.toString(getObjectCounts(pointsOne, queriesOne)));
     }
 
     static int[] getObjectCounts(int[][] objectLocations, int[][] radars) {
