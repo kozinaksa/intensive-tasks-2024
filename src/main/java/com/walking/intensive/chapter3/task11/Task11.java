@@ -57,28 +57,20 @@ public class Task11 {
         }
 
         int sum = 0;
+        int length = array.length;
 
-        for (int i = 0; i < array.length; i++) {
-            sum += getSum(array, i, array.length);
-        }
-
-        return sum;
-    }
-
-    static int getSum(int[] array, int count, int length) {
-        int sum = 0;
-
-        if (length < 1) {
-            return sum;
-        }
-
-        if ((length - count) % 2 != 0 || length == 1) {
-            for (int i = count; i < length; i++) {
-                sum += array[i];
+        while (length > 0) {
+            for (int i = 0; i < array.length; i++) {
+                if ((length - i) % 2 != 0 || length == 1) {
+                    for (int j = i; j < length; j++) {
+                        sum += array[j];
+                    }
+                }
             }
+
+            length--;
         }
 
-        sum += getSum(array, count, length - 1);
         return sum;
     }
 }
