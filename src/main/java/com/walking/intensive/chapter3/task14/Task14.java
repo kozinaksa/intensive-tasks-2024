@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter3.task14;
 
+import java.util.Arrays;
+
 /**
  * Необходимо разработать программу, которая определяет количество объектов на радарах.
  *
@@ -44,10 +46,41 @@ package com.walking.intensive.chapter3.task14;
 public class Task14 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        int[][] pointsOne = {{1, 3}, {3, 3}, {5, 3}, {2, 2}};
+        int[][] queriesOne = {{2, 3, 1}, {4, 3, 1}, {1, 1, 2}};
+        System.out.println(Arrays.toString(getObjectCounts(pointsOne, queriesOne)));
     }
 
     static int[] getObjectCounts(int[][] objectLocations, int[][] radars) {
-        // Ваш код
-        return new int[0];
+        for (int[] i : objectLocations) {
+            if (i.length != 2) {
+                return new int[0];
+            }
+        }
+
+        for (int[] i : radars) {
+            if (i.length != 3 || i[2] < 0) {
+                return new int[0];
+            }
+        }
+
+        int[] objectCounts = new int[radars.length];
+        int count = 0;
+
+        for (int[] radar : radars) {
+            for (int[] object : objectLocations) {
+                if (Math.abs(radar[0] - object[0]) <= radar[2] && radar[1] == object[1]) {
+                    objectCounts[count]++;
+                } else if (radar[0] == object[0] && Math.abs(radar[1] - object[1]) <= radar[2]) {
+                    objectCounts[count]++;
+                } else if (Math.abs(radar[0] - object[0]) < radar[2] && Math.abs(radar[1] - object[1]) < radar[2]) {
+                    objectCounts[count]++;
+                }
+            }
+
+            count++;
+        }
+
+        return objectCounts;
     }
 }
