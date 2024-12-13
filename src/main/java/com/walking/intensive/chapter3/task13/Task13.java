@@ -54,18 +54,12 @@ public class Task13 {
     }
 
     static int getStepsCount(int[] plants, int wateringCanVolume) {
-        if (wateringCanVolume < 1) {
+        if (isDataIncorrect(plants, wateringCanVolume)) {
             return -1;
         }
 
-        if (plants == null || plants.length < 1) {
+        if (isPlantsEmpty(plants)) {
             return 0;
-        }
-
-        for (int plant : plants) {
-            if (plant < 1) {
-                return -1;
-            }
         }
 
         int waterVolume = wateringCanVolume;
@@ -82,5 +76,23 @@ public class Task13 {
         }
 
         return steps;
+    }
+
+    static boolean isDataIncorrect(int[] plants, int wateringCanVolume) {
+        if (wateringCanVolume < 1) {
+            return true;
+        }
+
+        for (int plant : plants) {
+            if (plant < 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    static boolean isPlantsEmpty(int[] plants) {
+        return plants == null || plants.length < 1;
     }
 }
